@@ -82,8 +82,8 @@ $('.activities').on('change', (e) =>{
 // PAYMENT OPTIONS - only show the payment option that is selected
 $('#paypal').hide();
 $('#bitcoin').hide();
-$('#credit-card').hide()
-$('#select-method').prop('disabled', true);
+document.getElementById('payment').options[1].selected = true
+$('#select-method').hide();
 
 $('#payment').on('change', (e) => {
   let paymentType = e.target.value;
