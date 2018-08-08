@@ -26,8 +26,8 @@ otherTitle.classList.toggle("is-hidden");
 $('#title').on('change', (e) => {
   const option = e.target.value;
   if(option === 'other') {
-    $('.other-label').show();
-    $('#other-title').show();
+    otherLabel.style.display = 'block';
+    otherTitle.style.display = 'block';
   }
   if (option !== 'other') {
     otherLabel.style.display = 'none';
