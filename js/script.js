@@ -17,8 +17,10 @@ const form = $('form')[0];
 $('#name').focus();
 
 // Initially hiding the 'Other' job field
-$('.other-label').hide();
-$('#other-title').hide();
+const otherLabel = document.querySelector('.other-label');
+const otherTitle = document.getElementById('other-title');
+otherLabel.classList.toggle("is-hidden");
+otherTitle.classList.toggle("is-hidden");
 
 // When the other job field is selected, the text field appears
 $('#title').on('change', (e) => {
@@ -27,12 +29,18 @@ $('#title').on('change', (e) => {
     $('.other-label').show();
     $('#other-title').show();
   }
+  if (option !== 'other') {
+    otherLabel.style.display = 'none';
+    otherTitle.style.display = 'none';
+  }
 });
 
 
 // When the user clicks a design, the color drop-down will be filtered to only
 // include color options for that design
 $('#colors-js-puns').hide();
+const selectDesign = document.getElementById('design').options[0];
+selectDesign.style.display = 'none';
 
 $('#design').on('change', (e) => {
   const design = e.target.value;
@@ -212,7 +220,12 @@ function errorCreditCard(e, label, field, condition, noErrorLabel, errorLabel, a
   if (active) {
     activeElementRequired = field === document.activeElement;
   }
-  if (activeElementRequired && paymentType === 'credit-card' && (!intField || !condition)) {
+  if(activeElementRequired && paymentType === 'credit-card' && field.value.length !== 0 && !intField) {
+    errorActive(e, label, field);
+    label.textContent = 'Please only enter numbers!';
+    return true;
+  }
+  else if (activeElementRequired && paymentType === 'credit-card' && !condition) {
     errorActive(e, label, field);
     label.textContent = errorLabel;
     return true;
